@@ -1,0 +1,47 @@
+language: csharp
+solution: visualcsc.sln
+mono: none
+dotnet: 3.1.101
+notifications:
+    email:
+      - iordan415586@gmail.com
+
+    
+install:
+    - nuget restore VisualCSC.sln
+    - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
+script:
+    - dotnet restore
+    #- msbuild /p:Configuration=Release solution-name.sln
+    #- mono ./testrunner/NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe ./MyProject.Tests/bin/Release/MyProject.Tests.dll
+services:
+    - docker
+before_install:
+    - docker build -t hyst3r1a/VisualCSC
+    - docker ps -a
+    - docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+    - docker ps -a
+    - docker run -d -p 8080:80 --name VisualCSC hyst3r1a/VisualCSC
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin registry.example.com
+
+after_succes:
+    #- sh .travis/deploy_dockerhub.sh
+    #- test “$TRAVIS_BRANCH” = “master” && sh .travis/deploy_heroku.sh
+deploy:
+    provider: heroku:git
+    username: $DOCKER_USERNAME
+    password: $DOCKER_PASSWORD
+    run: 
+        - "touch /tmp/prometheus.yml"
+        - >
+            "echo "global:\
+            scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.\
+            evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.\
+            \
+            scrape_configs:\
+            - job_name: 'netcore-prometheus'\
+            # metrics_path defaults to '/metrics'\
+            static_configs:\
+            - targets: [':8080']" >> /tmp/prometheus.yml"
+        - "docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus"
+        - "docker run -d -p 8080:80 --name VisualCSC hyst3r1a/VisualCSC"

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Prometheus;
 using VisualCSC.Data;
 
 namespace VisualCSC
@@ -47,7 +48,7 @@ namespace VisualCSC
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseMetricServer();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -55,6 +56,7 @@ namespace VisualCSC
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+            
         }
     }
 }
