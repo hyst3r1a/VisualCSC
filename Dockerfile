@@ -10,7 +10,7 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app
 COPY --from=build-env /app/out .
-RUN docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+#RUN docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
 CMD ["dotnet", "aspnetapp.dll"]
 RUN echo "global:\
   scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.\
