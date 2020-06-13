@@ -24,6 +24,7 @@ before_install:
     - docker run -d -p 8080:80 --name visualcsc hyst3r1a/visualcsc
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin registry.example.com
 
+    
 after_succes:
     #- sh .travis/deploy_dockerhub.sh
     #- test “$TRAVIS_BRANCH” = “master” && sh .travis/deploy_heroku.sh
