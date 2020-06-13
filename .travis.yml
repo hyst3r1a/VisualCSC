@@ -17,11 +17,11 @@ script:
 services:
     - docker
 before_install:
-    - docker build -t hyst3r1a/VisualCSC
+    - docker build -t hyst3r1a/visualcsc
     - docker ps -a
     - docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
     - docker ps -a
-    - docker run -d -p 8080:80 --name VisualCSC hyst3r1a/visualcsc
+    - docker run -d -p 8080:80 --name visualcsc hyst3r1a/visualcsc
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin registry.example.com
 
 after_succes:
