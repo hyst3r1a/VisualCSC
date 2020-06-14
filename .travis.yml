@@ -17,6 +17,7 @@ script:
 services:
     - docker
 before_install:
+    - apt-get update && apt-get install -y nuget
     - docker build -t hyst3r1a/visualcsc .
     - docker ps -a
     - docker build -t my-prometheus ./tmp
@@ -45,5 +46,6 @@ deploy:
             # metrics_path defaults to '/metrics'\
             static_configs:\
             - targets: [':8080']" >> /tmp/prometheus.yml"
-        - "docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus"
         - "docker run -d -p 8080:80 --name VisualCSC hyst3r1a/visualcsc"
+        - "docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus"
+        
