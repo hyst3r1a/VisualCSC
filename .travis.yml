@@ -19,12 +19,13 @@ services:
 before_install:
     - docker build -t hyst3r1a/visualcsc .
     - docker ps -a
-    - docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+    - docker build -t my-prometheus ./tmp
+    - docker run -p 9090:9090 my-prometheus
     - docker ps -a
     - docker run -d -p 8080:80 --name visualcsc hyst3r1a/visualcsc
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin registry.example.com
 
-    
+
 after_succes:
     #- sh .travis/deploy_dockerhub.sh
     #- test “$TRAVIS_BRANCH” = “master” && sh .travis/deploy_heroku.sh
