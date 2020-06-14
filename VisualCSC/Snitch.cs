@@ -22,9 +22,10 @@ namespace VisualCSC
                 {
                     var message = string.Format("On machine: {0} \n {1} \n", Environment.MachineName, messageStr);
                     var responseString = client.GetStringAsync(url + "?m=" + message).Result;
+                }
                 catch (Exception e)
                 {
-                    
+
                 }
             }
         }
