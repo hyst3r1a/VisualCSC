@@ -5,6 +5,7 @@ WORKDIR /app
 
 # Copy everything else and build
 COPY . ./
+RUN apt-get update && apt-get install -y nuget
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
 # Build runtime image
