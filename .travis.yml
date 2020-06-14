@@ -32,6 +32,7 @@ deploy:
     username: $DOCKER_USERNAME
     password: $DOCKER_PASSWORD
     api_key: $DOCKER_PASSWORD
+    app: visualcsc
     run: 
         
         - "docker run -d -p 8080:80 --name VisualCSC hyst3r1a/visualcsc"
