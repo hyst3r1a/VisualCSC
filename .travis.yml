@@ -15,7 +15,6 @@ script:
 services:
     - docker
 before_install:
-    - apt-get update && apt-get install -y nuget
     - docker build -t hyst3r1a/visualcsc .
     - docker ps -a
     - docker build -t my-prometheus ./tmp
