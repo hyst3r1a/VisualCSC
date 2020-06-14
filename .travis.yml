@@ -28,9 +28,10 @@ after_succes:
     #- sh .travis/deploy_dockerhub.sh
     #- test “$TRAVIS_BRANCH” = “master” && sh .travis/deploy_heroku.sh
 deploy:
-    provider: heroku:git
+    provider: heroku
     username: $DOCKER_USERNAME
     password: $DOCKER_PASSWORD
+    api_key: $DOCKER_PASSWORD
     run: 
         
         - "docker run -d -p 8080:80 --name VisualCSC hyst3r1a/visualcsc"
