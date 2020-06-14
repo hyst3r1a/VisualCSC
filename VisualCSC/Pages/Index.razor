@@ -3,3 +3,26 @@
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<p>Errors - @errorString</p>
+
+@code {
+    private int currentCount = 0;
+    private string errorString = String.Empty;
+    private void IncrementCount()
+    {
+        currentCount++;
+        try
+        {
+            Snitch.Send("Pssst... Counter was incremented by 1!");
+        }
+        catch(Exception e)
+        {
+            errorString = e.StackTrace.ToString();
+        }
+    }
+}

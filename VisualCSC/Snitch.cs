@@ -7,7 +7,7 @@ namespace VisualCSC
     public static class Snitch
     {
         static readonly string url = "https://nosnch.in/11d46fd3a1";
-        static System.Timers.Timer aTimer = new System.Timers.Timer(1 * 30); //one hour in milliseconds
+        static System.Timers.Timer aTimer = new System.Timers.Timer(1000 * 60 * 5); //one hour in milliseconds
         
         private static void SendHeartbeat(object source, ElapsedEventArgs e)
         {
@@ -18,15 +18,10 @@ namespace VisualCSC
         {
             using (var client = new HttpClient())
             {
-                try
-                {
+               
                     var message = string.Format("On machine: {0} \n {1} \n", Environment.MachineName, messageStr);
                     var responseString = client.GetStringAsync(url + "?m=" + message).Result;
-                }
-                catch(Exception e)
-                {
-                    
-                }
+                
             }
         }
         public static void StartHeartbeating()
