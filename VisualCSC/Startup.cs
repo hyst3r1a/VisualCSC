@@ -56,7 +56,7 @@ namespace VisualCSC
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
-            
+            Snitch.StartHeartbeating();
         }
     }
 }

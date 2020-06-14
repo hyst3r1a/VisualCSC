@@ -7,8 +7,22 @@
   <ItemGroup>
     <PackageReference Include="prometheus-net.AspNetCore" Version="3.5.0" />
     <PackageReference Include="prometheus-net" Version="3.5.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Prometheus\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Data\Users.cs" />
+    <Compile Remove="Data\user.cs" />
+    <Compile Remove="Models\DomainModelPostgreSqlContext.cs" />
   </ItemGroup>
 </Project>

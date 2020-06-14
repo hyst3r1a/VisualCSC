@@ -34,7 +34,6 @@ deploy:
     api_key: $DOCKER_PASSWORD
     app: visualcsc
     run: 
-        
         - "docker run -d -p 8080:80 --name VisualCSC hyst3r1a/visualcsc"
         - "docker run -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus"
         
